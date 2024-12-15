@@ -23,7 +23,8 @@ class RealtorListingController extends Controller
         $user = $request->user(); # current auth user
         $listings = $user->listings() #eloquent relationship
             ->filter($filters)
-            ->withCount('images') # related model count (relation)
+            ->withCount('images') # count related images for listing
+            ->withCount('offers') # count related offers for listing
             ->paginate(6)
             ->withQueryString(); #maintain query params
 
@@ -33,6 +34,14 @@ class RealtorListingController extends Controller
                 'filters' => $filters,
                 'listings' => $listings
             ]
+        );
+    }
+
+    public function show(Listing $listing)
+    {
+        return inertia(
+            'Realtor/ShowOffers',   # Listing    Offer relationship
+            ['listing' => $listing->load('offers', 'offers.bidder')] // loading all bidder in the offers
         );
     }
 
@@ -61,14 +70,14 @@ class RealtorListingController extends Controller
             ->with('success', 'Listing has been added');
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     */
+
     public function edit(Listing $listing)
     {
-        //                     from ListingPolicy
-        try {
-            $this->authorize('update', $listing);
-        } catch (AuthorizationException $e) {
-            abort(403, 'You are not authorized to edit this listing.');
-        }
+        #         ListingPolicy
+        $this->authorize('update', $listing);
         return inertia(
             'Realtor/EditListing',
             ['listing' => $listing]
@@ -80,12 +89,8 @@ class RealtorListingController extends Controller
      */
     public function update(ListingRequest $request, Listing $listing)
     {
-        //                     from ListingPolicy
-        try {
-            $this->authorize('update', $listing);
-        } catch (AuthorizationException $e) {
-            abort(403, 'You are not authorized to update this listing.');
-        }
+        #         ListingPolicy
+        $this->authorize('update', $listing);
         $listing->update($request->validated());
         return redirect()->route('realtor.listing.index')
             ->with('success', 'Listing was updated');

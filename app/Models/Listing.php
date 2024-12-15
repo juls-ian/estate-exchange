@@ -26,23 +26,29 @@ class Listing extends Model
         'created_at'
     ];
 
-    // RELATIONSHIP TO USER
+    // Relationship to User
     public function owner()
-    {
+    {                                           #custom foreign id
         return $this->belongsTo(Listing::class, 'owner_id');
     }
 
-    // RELATIONSHIP TO LISTING IMAGE 
+    // Relationship to Listing Image
     public function images()
-    {
+    {                   #using default listing_id foreign id
         return $this->hasMany(ListingImage::class);
     }
 
+    // Relationship to Offer 
+    public function offers()
+    {                   #using default listing_id foreign id
+        return $this->hasMany(Offer::class);
+    }
+    // Local scope most recent filter
     public function scopeMostRecent(Builder $query)
     {
         return $query->orderByDesc('created_at');
     }
-
+    // Local scope filters
     public function scopeFilter(Builder $query, array $filters)
     {
         return $query
@@ -79,4 +85,21 @@ class Listing extends Model
                 $query->orderBy($filter, $filters['order'] ?? 'desc')
             );
     }
+    // Query scope for unaccepted offers 
+    public function scopeUnsold(Builder $query)
+    {
+        return $query->whereNull('sold_at');
+    }
+    /*
+    public function scopeUnsold(Builder $query)
+    {
+        return $query->doesntHave('offers')
+            ->orWhereHas(
+                'offers',
+                fn(Builder $query) => $query
+                    ->whereNull('accepted_at')
+                    ->whereNull('rejected_at')
+            );
+    }
+            */
 }

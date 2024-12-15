@@ -23,10 +23,15 @@ class User extends Authenticatable
         'password',
     ];
 
-    // RELATIONSHIP TO LISTING 
+    // Relationship to Listing 
     public function listings()
     {
         return $this->hasMany(Listing::class, 'owner_id');
+    }
+
+    public function offers()
+    {
+        return $this->hasMany(Offer::class, 'bidder_id');
     }
 
     /**
