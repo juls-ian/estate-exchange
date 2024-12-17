@@ -1,9 +1,11 @@
 <template>
   <h1 class="text-3xl mb-4">Your Listings</h1>
+  <!-- FILTERS -->
   <section>
     <RealtorFilters :filters="props.filters" />
   </section>
-  <section class="grid grid-cols-1 lg:grid-cols-2 gap-2">
+  <!-- CONTENT  -->
+  <section v-if="props.listings.data.length" class="grid grid-cols-1 lg:grid-cols-2 gap-2">
     <Box
       v-for="listing in props.listings.data"
       :key="listing.id"
@@ -74,7 +76,8 @@
       </div>
     </Box>
   </section>
-
+  <EmptyState v-else> No listings yet </EmptyState>
+  <!-- PAGINATION -->
   <section v-if="props.listings.data.length" class="w-full flex justify-center mt-4 mb-4">
     <Pagination :links="props.listings.links" />
   </section>
@@ -86,6 +89,7 @@
   import Price from '@/Components/Listing/Price.vue';
   import RealtorFilters from '@/Components/Realtor/RealtorFilters.vue';
   import Box from '@/Components/UI/Box.vue';
+  import EmptyState from '@/Components/UI/EmptyState.vue';
   import Pagination from '@/Components/UI/Pagination.vue';
   import { Link } from '@inertiajs/vue3';
 

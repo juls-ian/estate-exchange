@@ -1,10 +1,11 @@
 <template>
   <div class="mx-10 py-10 flex flex-col-reverse md:grid md:grid-cols-12 gap-4">
-    <Box class="md:col-span-7 flex items-center w-full">
-      <div v-if="props.listing.images.length" class="grid grid-cols-2 gap-1">
+    <Box v-if="props.listing.images.length" class="md:col-span-7 flex items-center w-full">
+      <div class="grid grid-cols-2 gap-1">
         <img v-for="image in props.listing.images" :key="image.id" :src="image.src" />
       </div>
     </Box>
+    <EmptyState v-else class="md:col-span-7 flex items-center"> No images </EmptyState>
 
     <div class="md:col-span-5 flex-col gap-4">
       <Box>
@@ -95,6 +96,7 @@
   import MakeOffer from '@/Components/Offer/MakeOffer.vue';
   import { usePage } from '@inertiajs/vue3';
   import OfferMade from '@/Components/Offer/OfferMade.vue';
+  import EmptyState from '@/Components/UI/EmptyState.vue';
   // Props from controller
   const props = defineProps({
     listing: Object,

@@ -10,6 +10,19 @@
         </div>
         <!-- IF AUTHENTICATED  -->
         <div class="flex items-center gap-5" v-if="loggedUser">
+          <!-- Notification -->
+          <Link
+            :href="route('notification.index')"
+            class="text-gray-500 relative pr-1 py-1 text-base"
+          >
+            🔔
+            <div
+              v-if="notificationCount"
+              class="absolute right-0 top-0 w-4 h-4 bg-red-700 dark:bg-red-400 text-white font-medium border border-white dark:border-gray-900 rounded-full text-xs text-center"
+            >
+              {{ notificationCount }}
+            </div>
+          </Link>
           <!-- LOGGED IN USER -->
           <Link class="text-sm text-gray-500 font-bold" :href="route('realtor.listing.index')">
             {{ loggedUser.name }}
@@ -57,4 +70,6 @@
     },
     { immediate: true }
   );
+
+  const notificationCount = computed(() => Math.min(page.props.user.notificationCount, 9));
 </script>
