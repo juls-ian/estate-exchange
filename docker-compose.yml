@@ -1,7 +1,7 @@
 version: "3.9"
 services:
   mysql:
-    image: mariadb:10.8.3
+    image: mariadb:11.4.4
     # Uncomment below when on Mac M1
     platform: linux/arm64/v8
 
@@ -10,9 +10,24 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: devian
     ports:
-      - 3307:3306
+      - 3307:3307
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
+  mailpit:
+    image: axllent/mailpit
+    container_name: mailpit
+    restart: unless-stopped
+    volumes:
+      - ./data:/data
+    ports:
+      - 8025:8025
+      - 1025:1025
+    environment:
+      MP_MAX_MESSAGES: 5000
+      MP_DATABASE: /data/mailpit.db
+      MP_SMTP_AUTH_ACCEPT_ANY: 1
+      MP_SMTP_AUTH_ALLOW_INSECURE: 1
+
