@@ -29,7 +29,7 @@ class Listing extends Model
     // Relationship to User
     public function owner()
     {                                           #custom foreign id
-        return $this->belongsTo(Listing::class, 'owner_id');
+        return $this->belongsTo(User::class, 'owner_id');
     }
 
     // Relationship to Listing Image

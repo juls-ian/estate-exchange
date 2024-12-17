@@ -45,7 +45,7 @@ class ListingPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(User $user, Listing $listing): bool
     {
         return true;
     }
@@ -83,5 +83,10 @@ class ListingPolicy
     {
         return $user->id === $listing->owner_id;
 
+    }
+
+    public function sendOffer(User $user, Listing $listing): bool
+    {
+        return $user->id !== $listing->owner_id;
     }
 }
