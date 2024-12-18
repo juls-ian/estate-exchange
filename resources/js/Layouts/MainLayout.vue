@@ -1,11 +1,13 @@
 <template>
-  <header class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 w-full">
+  <header
+    class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 w-full text-center justify-between"
+  >
     <div class="container mx-auto">
       <nav class="p-4 flex items-center justify-between">
-        <div class="text-lg font-medium">
+        <div class="text-lg font-medium text-blue-800 dark:text-blue-500">
           <Link :href="route('listing.index')">Listings</Link>
         </div>
-        <div class="text-xl text-indigo-600 dark:text-indigo-300 font-bold text-center">
+        <div class="text-xl text-yellow-600 dark:text-yellow-300 font-bold text-center ml-20">
           <Link :href="route('listing.index')">Estate Exchange</Link>
         </div>
         <!-- IF AUTHENTICATED  -->
@@ -29,7 +31,7 @@
           </Link>
           <Link
             :href="route('realtor.listing.create')"
-            class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium p-2 rounded-md"
+            class="bg-blue-600 hover:bg-blue-500 text-white font-medium p-2 rounded-md"
           >
             New Listing
           </Link>

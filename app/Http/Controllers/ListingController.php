@@ -18,8 +18,10 @@ class ListingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request, Listing $listing)
     {
+        $this->authorize('view', $listing);
+
         # filters variable  
         $filters = $request->only([
             'priceFrom',
@@ -37,9 +39,16 @@ class ListingController extends Controller
                 'listings' => Listing::mostRecent() #query only executed with paginate method
                     ->filter($filters) #scopeFilter
                     ->unsold() # exclude sold listing
-                    ->paginate(10) # returns an object
+                    ->excludeOwned()
+                    /*
+                    ->when(Auth::check(), function ($query) {
+                        return $query->where('owner_id', '!=', Auth::id());
+                    })
+                        */
+                    ->paginate(12) # returns an object
                     ->withQueryString() # keep the url when paginating
             ]
+
         );
     }
 

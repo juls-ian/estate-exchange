@@ -6,6 +6,7 @@ use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 
 class Listing extends Model
 {
@@ -89,6 +90,14 @@ class Listing extends Model
     public function scopeUnsold(Builder $query)
     {
         return $query->whereNull('sold_at');
+    }
+    public function scopeExcludeOwned(Builder $query)
+    {
+        // Ensure the user is authenticated before applying the filter
+        if (Auth::check()) {
+            return $query->where('owner_id', '!=', Auth::id());
+        }
+        return $query; // Return unfiltered query if the user is not authenticated
     }
     /*
     public function scopeUnsold(Builder $query)

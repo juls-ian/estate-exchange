@@ -5,7 +5,7 @@
       :key="index"
       class="py-2 px-4 rounded-md"
       :href="link.url"
-      :class="{ 'bg-indigo-500 dark:bg-indigo-800 text-gray-300': link.active }"
+      :class="{ 'bg-blue-500 dark:bg-blue-800 text-gray-300': link.active }"
       v-html="link.label"
     />
   </div>

@@ -52,13 +52,11 @@ Route::delete('logout', [AuthController::class, 'destroy'])
 Route::get('/email/verify', function () {
     return inertia('Auth/VerifyEmail');
 })->middleware('auth')->name('verification.notice');
-
 Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
     $request->fulfill();
     return redirect()->route('listing.index')->with('success', 'Email successfully verified');
 })->middleware(['auth', 'signed'])->name('verification.verify');
 # resend verification route 
-
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 
@@ -68,8 +66,6 @@ Route::post('/email/verification-notification', function (Request $request) {
 
 # Register Route
 Route::resource('user', UserAccountController::class);
-
-
 
 
 # Realtor Routes (routes grouped)
