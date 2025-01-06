@@ -12,7 +12,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Figtree', ...defaultTheme.fontFamily.sans]
+        sans: ['Roboto', ...defaultTheme.fontFamily.sans],
+        poppins: ['Poppins', 'sans-serif'],
+        roboto: ['Roboto', 'sans-serif'],
+        tsukimi: ['Tsukimi Rounded', 'sans-serif']
       }
     }
   },

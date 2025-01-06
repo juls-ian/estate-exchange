@@ -19,10 +19,8 @@ use Illuminate\Http\Request;
 // });
 
 # Index Controller
-Route::get('/', [IndexController::class, 'index']);
-Route::get('/show', [IndexController::class, 'show'])
-    ->middleware('auth');
 
+Route::get('/', [ListingController::class, 'index']);
 
 # Listing Routes
 Route::resource('listing', ListingController::class)
