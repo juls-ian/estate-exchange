@@ -115,4 +115,5 @@
 
   const page = usePage();
   const loggedUser = computed(() => page.props.user);
+  console.log(props.listing);
 </script>

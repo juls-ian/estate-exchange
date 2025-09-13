@@ -4,7 +4,7 @@
       <Link :href="route('listing.show', { listing: listing.id })">
         <div class="flex items-center gap-1">
           <Price :price="listing.price" class="text-2xl font-bold text-blue-400" />
-          <div class="text-xs text-gray-500">
+          <div class="text-xs text-yellow-400">
             <Price :price="monthlyPayment" />
             payment
           </div>
@@ -33,4 +33,5 @@
     2.25,
     25
   );
+  console.log(props.listing);
 </script>

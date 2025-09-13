@@ -2,13 +2,13 @@
   <header
     class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 w-full text-center justify-between"
   >
-    <div class="container mx-auto ml-2 mr-2">
+    <div class="container mx-auto pl-3 pr-3">
       <nav class="p-4 flex items-center justify-between">
         <div class="text-lg font-medium text-blue-800 dark:text-blue-500">
           <Link :href="route('listing.index')">Listings</Link>
         </div>
         <div
-          class="text-2xl text-yellow-600 dark:text-yellow-300 font-bold text-center ml-20 font-tsukimi"
+          class="text-2xl text-yellow-600 dark:text-yellow-400 font-bold text-center ml-20 font-poppins"
         >
           <Link :href="route('listing.index')">Estate Exchange</Link>
         </div>
